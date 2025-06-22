@@ -22,6 +22,7 @@ class ShoppingCartRepositoryTest @Autowired constructor(
   fun setUp() {
     // Clear the repository before each test
     repository.deleteAll()
+    repository.flush()
     entityManager.clear() // Clear the EntityManager to avoid caching issues
     val item1 = ShoppingItem(
       category = "Electronics",
@@ -46,29 +47,15 @@ class ShoppingCartRepositoryTest @Autowired constructor(
     )
     shoppingCart.addItem(item1)
     shoppingCart.addItem(item2)
-
     repository.save(shoppingCart)
-    entityManager.flush() // Ensure the changes are persisted
-    entityManager.clear() // Clear the EntityManager to avoid caching issues
-
-    val retrievedCart = repository.findByUserId("testUser")
-
-    assertNotNull(retrievedCart)
-    assertTrue(retrievedCart?.id!! > 0)
-    assertEquals(2, retrievedCart.items.size)
-
-    this.shoppingCart = retrievedCart ?: throw Exception("ShoppingCart not found")
+    this.shoppingCart = shoppingCart
   }
   @Test
   fun `should save and retrieve ShoppingCart`() {
-    val shoppingCart = ShoppingCart(
-        userId = "testUser",
-        expireDate = LocalDateTime.now().plusDays(1)
-    )
-    repository.save(shoppingCart)
-    assertTrue(shoppingCart.id!! > 0)
     val retrievedCart = repository.findByUserId("testUser")
     assertNotNull(retrievedCart)
+    assertTrue(retrievedCart?.id!! > 0)
+    assertEquals(2, retrievedCart.items.size)
     assertEquals("testUser", retrievedCart?.userId)
   }
 

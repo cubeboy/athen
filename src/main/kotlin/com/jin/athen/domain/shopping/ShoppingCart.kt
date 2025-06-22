@@ -16,6 +16,7 @@ class ShoppingCart(
     // 다중 연관계에서는 List 보다 Set 을 사용하는 것이 성능상 유리
     // Many to Many 관계에서 fetch 는 LAZY 가 기본값
     @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
+    @OrderBy("category DESC, name ASC")
     @JoinTable(
         name = "shopping_cart_item",
         joinColumns = [JoinColumn(name = "cart_id")],
