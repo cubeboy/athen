@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
+import org.springframework.data.domain.PageRequest
 
 @ExtendWith(MockKExtension::class)
 @DataJpaTest
@@ -73,6 +74,25 @@ class AuthorRepositoryTest {
   fun findByNameContainingReturnsEmptyListForNoMatches() {
     val result = repository.findByNameContaining("Smith")
     assertTrue(result.isEmpty())
+  }
+
+  @Test
+  fun findAllReturnsAllAuthorsWithBooksFetched() {
+    val result = repository.findAll(PageRequest.of(0, 10))
+    entityManager.flush()
+    assertEquals(1, result.totalPages)
+    assertEquals(0, result.pageable.pageNumber)
+    assertEquals(2, result.content.size)
+    assertTrue(result.content.all { it.books.isNotEmpty() })
+  }
+
+  @Test
+  fun findAllReturnsOutOfPageEmptyContent() {
+    val result = repository.findAll(PageRequest.of(1, 10))
+    entityManager.flush()
+    assertEquals(1, result.totalPages)
+    assertEquals(1, result.pageable.pageNumber)
+    assertTrue(result.content.isEmpty())
   }
 
   private fun createTestAuthor(): List<Author> {

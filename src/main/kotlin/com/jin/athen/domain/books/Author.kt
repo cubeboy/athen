@@ -4,6 +4,12 @@ import jakarta.persistence.*
 
 @Entity
 // entity class 는 data class 를 사용하지 않음
+@NamedEntityGraph(
+  name = "Author.books",
+  attributeNodes = [
+    NamedAttributeNode("books")
+  ]
+)
 class Author(
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
