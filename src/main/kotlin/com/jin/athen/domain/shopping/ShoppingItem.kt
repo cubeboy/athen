@@ -1,5 +1,6 @@
 package com.jin.athen.domain.shopping
 
+import com.jin.athen.domain.BooleanConverter
 import jakarta.persistence.*
 
 @Entity
@@ -12,6 +13,8 @@ class ShoppingItem(
   var name: String,
   var price: Double,
   var discountPrice: Double,
+  // Boolean 타입을 String 으로 변환하여 저장
+  @Convert(converter = BooleanConverter::class)
   var discount: Boolean,
   var discountRate: Double,
 
