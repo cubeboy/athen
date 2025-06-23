@@ -1,4 +1,4 @@
-package com.jin.athen.domain.shopping
+package com.jin.athen.domain.model.shopping
 
 import com.jin.athen.domain.BooleanConverter
 import jakarta.persistence.*

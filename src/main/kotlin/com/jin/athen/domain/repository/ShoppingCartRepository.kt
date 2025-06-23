@@ -1,6 +1,6 @@
 package com.jin.athen.domain.repository
 
-import com.jin.athen.domain.shopping.ShoppingCart
+import com.jin.athen.domain.model.shopping.ShoppingCart
 import org.springframework.data.jpa.repository.JpaRepository
 
 interface ShoppingCartRepository : JpaRepository<ShoppingCart, Long>

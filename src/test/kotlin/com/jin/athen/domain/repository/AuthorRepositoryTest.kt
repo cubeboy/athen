@@ -1,7 +1,7 @@
 package com.jin.athen.domain.repository
 
-import com.jin.athen.domain.books.Author
-import com.jin.athen.domain.books.Book
+import com.jin.athen.domain.model.books.Author
+import com.jin.athen.domain.model.books.Book
 import io.mockk.junit5.MockKExtension
 import jakarta.persistence.EntityManager
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -101,15 +101,18 @@ class AuthorRepositoryTest {
     author1.addBook(
       Book(
         title = "Book One",
-        isbn = "ISBN-1234567890"))
+        isbn = "ISBN-1234567890")
+    )
     author1.addBook(
       Book(
         title = "Book Two",
-        isbn = "ISBN-2345678901"))
+        isbn = "ISBN-2345678901")
+    )
     author2.addBook(
       Book(
         title = "Book Two",
-        isbn = "ISBN-0987654321"))
+        isbn = "ISBN-0987654321")
+    )
     repository.save(author1)
     repository.save(author2)
 //    entityManager.flush()

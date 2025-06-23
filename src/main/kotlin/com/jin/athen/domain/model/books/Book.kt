@@ -1,4 +1,4 @@
-package com.jin.athen.domain.books
+package com.jin.athen.domain.model.books
 
 import jakarta.persistence.*
 

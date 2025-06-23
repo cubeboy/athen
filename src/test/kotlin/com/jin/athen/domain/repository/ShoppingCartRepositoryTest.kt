@@ -1,7 +1,7 @@
 package com.jin.athen.domain.repository
 
-import com.jin.athen.domain.shopping.ShoppingCart
-import com.jin.athen.domain.shopping.ShoppingItem
+import com.jin.athen.domain.model.shopping.ShoppingCart
+import com.jin.athen.domain.model.shopping.ShoppingItem
 import jakarta.persistence.EntityManager
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
